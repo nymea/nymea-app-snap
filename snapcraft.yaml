@@ -1,0 +1,168 @@
+name: nymea-app
+version: 1.0.x
+summary: Control app for nymea
+description: | 
+  The nymea daemon is a plugin based IoT (Internet of Things) server. 
+  The server works like a translator for devices, things and services 
+  and allows them to interact. With the powerful rule engine you are 
+  able to connect any device available in the system and create individual 
+  scenes and behaviors for your environment.
+
+grade: stable
+confinement: classic
+
+apps:
+  guh-control:
+    command: env PATH=$PATH:$SNAP/bin qt5-launch nymea-app -platform webgl:port=8080
+    daemon: simple
+    restart-condition: always
+
+parts:
+  # Adding the whole guh project containig libguh and plugins
+  guh-control:
+    plugin: qmake
+    source: https://github.com/guh/nymea-app.git
+    source-type: git
+    source-branch: master
+#    qt-version: qt5
+    after: [ qt-5-10-0 ]
+    project-files: [ nymea-app.pro ]
+    options: [ CONFIG+=withavahi ]
+
+  qt5-launch:
+    plugin: dump
+    source: .
+    organize:
+      qt5-launch: bin/
+
+  # Qt 5.10.0 plugins and tools for building loopd with bluetooth LE host mode
+  qt-5-10-0:
+    plugin: autotools
+    source: http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz
+    source-type: tar
+    build-packages:
+      - g++
+      - freetds-dev
+      - gdb
+      - libatspi2.0-dev
+      - libdbus-1-dev
+      - libsystemd-dev
+      - libfontconfig1-dev
+      - libfreetype6-dev
+      - libgbm-dev
+      - libglib2.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libgstreamer1.0-dev
+      - libharfbuzz-dev
+      - libicu-dev
+      - libinput-dev
+      - libmtdev-dev
+      - libmysqlclient-dev
+      - libpcre3-dev
+      - libpq-dev
+      - libproxy-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - libudev-dev
+      - libbluetooth-dev
+      - libxext-dev
+      - libxi-dev
+      - pkg-kde-tools
+      - publicsuffix
+      - unixodbc-dev
+      - zlib1g-dev
+    configflags:
+      - -release
+      - -confirm-license
+      - -opensource
+      - -platform 
+      - linux-g++
+      - -openssl
+      - -syslog
+      - -journald
+      - -no-rpath
+      - -verbose
+      - -silent
+      - -opengl
+      - es2
+      - -no-widgets
+      - -no-xcb
+      - -no-gtk
+      - -fontconfig
+      - -no-eglfs
+      - -no-cups
+      - -no-accessibility
+      - -no-use-gold-linker
+      - -nomake 
+      - examples
+      - -nomake 
+      - tests
+      - -skip 
+      - qt3d
+      - -skip 
+      - qtactiveqt
+      - -skip 
+      - qtandroidextras
+      - -skip 
+      - qtcanvas3d
+      - -skip 
+      - qtcharts
+      - -skip 
+      - qtdatavis3d
+      - -skip 
+      - qtdoc
+      - -skip 
+      - qtgamepad
+      - -skip 
+      - qtlocation
+      - -skip 
+      - qtmacextras
+      - -skip 
+      - qtpurchasing
+      - -skip 
+      - qtscxml
+      - -skip 
+      - qtsensors
+      - -skip 
+      - qtvirtualkeyboard
+      - -skip 
+      - qtwayland
+      - -skip 
+      - qtwebchannel
+      - -skip 
+      - qtwebengine
+      - -skip 
+      - qtwebview
+      - -skip 
+      - qtwinextras
+      - -skip 
+      - qtx11extras
+      - -skip 
+      - qtxmlpatterns
+    stage-packages:
+      - icu-devtools
+      - libc6
+      - libdbus-1-3
+      - libdrm2
+      - libfreetype6
+      - libgbm1
+      - libgcc1
+      - libglib2.0-0
+      - libharfbuzz0b
+      - libice6
+      - libinput10
+      - libmtdev1
+      - libpcre16-3
+      - libproxy1v5
+      - libsm6
+      - libsqlite3-0
+      - libstdc++6
+      - libudev1
+      - libxext-dev
+      - libxi6
+      - libxkbcommon0
+      - perl
+      - zlib1g
+      - libdouble-conversion-dev
+
+
