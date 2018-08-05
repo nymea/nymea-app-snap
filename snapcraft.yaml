@@ -13,21 +13,27 @@ confinement: classic
 
 apps:
   nymea-app:
+    command: env PATH=$PATH:$SNAP/bin qt5-launch nymea-app
+
+  nymea-app-webgl:
     command: env PATH=$PATH:$SNAP/bin qt5-launch nymea-app -platform webgl:port=8080
     daemon: simple
     restart-condition: always
 
 parts:
   # Adding the whole guh project containig libguh and plugins
-  guh-control:
+  nymea-app:
     plugin: qmake
     source: https://github.com/guh/nymea-app.git
     source-type: git
     source-branch: master
 #    qt-version: qt5
-    after: [ qt-5-10-0 ]
+    after: [ qt-5-11-1 ]
     project-files: [ nymea-app.pro ]
     options: [ CONFIG+=withavahi ]
+    build-packages:
+      - libavahi-client-dev
+      - libavahi-common-dev
 
   qt5-launch:
     plugin: dump
@@ -36,9 +42,9 @@ parts:
       qt5-launch: bin/
 
   # Qt 5.10.0 plugins and tools for building loopd with bluetooth LE host mode
-  qt-5-10-0:
+  qt-5-11-1:
     plugin: autotools
-    source: http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz
+    source: http://download.qt.io/archive/qt/5.11/5.11.1/single/qt-everywhere-src-5.11.1.tar.xz
     source-type: tar
     build-packages:
       - g++
@@ -87,7 +93,7 @@ parts:
       - -opengl
       - es2
       - -no-widgets
-      - -no-xcb
+      - -qt-xcb
       - -no-gtk
       - -fontconfig
       - -no-eglfs

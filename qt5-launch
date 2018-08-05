@@ -64,6 +64,9 @@ export APP_DIR=$SNAP
 # of the system Compose files
 export QTCOMPOSE=$SNAP/usr/share/X11/locale
 
+# Export QML import parts
+export QML2_IMPORT_PATH=$SNAP/qml
+
 # Use GTK styling for running under Unity 7
 # TODO: find out what needs to be done for Unity 8
 export QT_STYLE_OVERRIDE=gtk
