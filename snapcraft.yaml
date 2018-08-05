@@ -10,6 +10,7 @@ description: |
 
 grade: stable
 confinement: classic
+base: core18
 
 apps:
   nymea-app:
@@ -27,167 +28,25 @@ parts:
     source: https://github.com/guh/nymea-app.git
     source-type: git
     source-branch: master
-#    qt-version: qt5
-    after: [ qt-5-11-1 ]
     project-files: [ nymea-app.pro ]
     options: [ CONFIG+=withavahi ]
     build-packages:
+      - qt5-default
+      - qt5-qmake
+      - qtbase5-dev
       - libavahi-client-dev
       - libavahi-common-dev
+      - libqt5svg5-dev
+      - libqt5websockets5-dev
+      - qtconnectivity5-dev
+      - qtdeclarative5-dev
+      - qtquickcontrols2-5-dev
+      - qttools5-dev-tools
+    stage-packages:
+      - libgl1-mesa-dri
 
   qt5-launch:
     plugin: dump
     source: .
     organize:
       qt5-launch: bin/
-
-  # Qt 5.10.0 plugins and tools for building loopd with bluetooth LE host mode
-  qt-5-11-1:
-    plugin: autotools
-    source: http://download.qt.io/archive/qt/5.11/5.11.1/single/qt-everywhere-src-5.11.1.tar.xz
-    source-type: tar
-    build-packages:
-      - g++
-      - freetds-dev
-      - gdb
-      - libatspi2.0-dev
-      - libdbus-1-dev
-      - libsystemd-dev
-      - libfontconfig1-dev
-      - libfreetype6-dev
-      - libgbm-dev
-      - libgles2-mesa-dev
-      - libglib2.0-dev
-      - libgstreamer-plugins-base1.0-dev
-      - libgstreamer1.0-dev
-      - libharfbuzz-dev
-      - libicu-dev
-      - libinput-dev
-      - libmtdev-dev
-      - libmysqlclient-dev
-      - libpcre3-dev
-      - libpq-dev
-      - libproxy-dev
-      - libsqlite3-dev
-      - libssl-dev
-      - libudev-dev
-      - libbluetooth-dev
-      - libx11-dev
-      - libx11-xcb-dev
-      - libxcb-icccm4-dev
-      - libxcb-image0-dev
-      - libxcb-keysyms1-dev
-      - libxcb-randr0-dev
-      - libxcb-render-util0-dev
-      - libxcb-render0-dev
-      - libxcb-shape0-dev
-      - libxcb-shm0-dev
-      - libxcb-sync-dev
-      - libxcb-xfixes0-dev
-      - libxcb-xinerama0-dev
-      - libxcb-xkb-dev
-      - libxcb1-dev
-      - libxext-dev
-      - libxi-dev
-      - libxkbcommon-dev
-      - libxkbcommon-x11-dev
-      - libxrender-dev
-      - pkg-kde-tools
-      - publicsuffix
-      - unixodbc-dev
-      - zlib1g-dev
-    configflags:
-      - -release
-      - -confirm-license
-      - -opensource
-      - -platform 
-      - linux-g++
-      - -openssl
-      - -syslog
-      - -journald
-      - -no-rpath
-      - -verbose
-      - -silent
-      - -opengl
-      - es2
-      - -no-widgets
-      - -xcb
-      - -no-gtk
-      - -fontconfig
-      - -no-eglfs
-      - -no-cups
-      - -no-accessibility
-      - -no-use-gold-linker
-      - -nomake 
-      - examples
-      - -nomake 
-      - tests
-      - -skip 
-      - qt3d
-      - -skip 
-      - qtactiveqt
-      - -skip 
-      - qtandroidextras
-      - -skip 
-      - qtcanvas3d
-      - -skip 
-      - qtcharts
-      - -skip 
-      - qtdatavis3d
-      - -skip 
-      - qtdoc
-      - -skip 
-      - qtgamepad
-      - -skip 
-      - qtlocation
-      - -skip 
-      - qtmacextras
-      - -skip 
-      - qtpurchasing
-      - -skip 
-      - qtscxml
-      - -skip 
-      - qtsensors
-      - -skip 
-      - qtvirtualkeyboard
-      - -skip 
-      - qtwayland
-      - -skip 
-      - qtwebchannel
-      - -skip 
-      - qtwebengine
-      - -skip 
-      - qtwebview
-      - -skip 
-      - qtwinextras
-      - -skip 
-      - qtx11extras
-      - -skip 
-      - qtxmlpatterns
-    stage-packages:
-      - icu-devtools
-      - libc6
-      - libdbus-1-3
-      - libdrm2
-      - libfreetype6
-      - libgbm1
-      - libgcc1
-      - libglib2.0-0
-      - libharfbuzz0b
-      - libice6
-      - libinput10
-      - libmtdev1
-      - libpcre16-3
-      - libproxy1v5
-      - libsm6
-      - libsqlite3-0
-      - libstdc++6
-      - libudev1
-      - libxext-dev
-      - libxi6
-      - libxkbcommon0
-      - perl
-      - zlib1g
-      - libdouble-conversion-dev
-
-
