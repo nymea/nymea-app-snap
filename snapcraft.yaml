@@ -12,7 +12,7 @@ grade: stable
 confinement: classic
 
 apps:
-  guh-control:
+  nymea-app:
     command: env PATH=$PATH:$SNAP/bin qt5-launch nymea-app -platform webgl:port=8080
     daemon: simple
     restart-condition: always
@@ -50,6 +50,7 @@ parts:
       - libfontconfig1-dev
       - libfreetype6-dev
       - libgbm-dev
+      - libgles2-mesa-dev
       - libglib2.0-dev
       - libgstreamer-plugins-base1.0-dev
       - libgstreamer1.0-dev
