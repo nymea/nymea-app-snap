@@ -91,7 +91,7 @@ class XQmakePlugin(snapcraft.BasePlugin):
                        for project_file in self.options.project_files]
 
         #self.run(['qmake'] + self._extra_config() + self.options.options + sources, env=env)
-        self.run([ self.project.parts_dir + '/qt-5-10-0/install/bin/qmake'] + self._extra_config() + self.options.options + sources, env=env)
+        self.run([ self.project.parts_dir + '/qt-5-11-1/install/bin/qmake'] + self._extra_config() + self.options.options + sources, env=env)
 
         self.run(['make', '-j{}'.format( self.parallel_build_count)], env=env)
 
@@ -104,25 +104,25 @@ class XQmakePlugin(snapcraft.BasePlugin):
             paths = common.get_library_paths(root, self.project.arch_triplet)
             for path in paths:
                 extra_config.append("LIBS+=\"-L{}\"".format(path))
-            extra_config.append("LIBS+=\"-L{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/lib'))
-            extra_config.append("QMAKE_LIBS+=\"-L{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/lib'))
-            extra_config.append("QMAKE_LIBDIR+=\"{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/lib'))
+            extra_config.append("LIBS+=\"-L{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/lib'))
+            extra_config.append("QMAKE_LIBS+=\"-L{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/lib'))
+            extra_config.append("QMAKE_LIBDIR+=\"{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/lib'))
 
             paths = common.get_include_paths(root, self.project.arch_triplet)
             for path in paths:
                 extra_config.append("INCLUDEPATH+=\"{}\"".format(path))
-            extra_config.append("INCLUDEPATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/include'))
+            extra_config.append("INCLUDEPATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/include'))
 
-            extra_config.append("QML_IMPORT_PATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/qml'))
-            extra_config.append("QML2_IMPORT_PATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-10-0/install/qml'))
+            extra_config.append("QML_IMPORT_PATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/qml'))
+            extra_config.append("QML2_IMPORT_PATH+=\"{}\"".format(self.project.parts_dir + '/qt-5-11-1/install/qml'))
 
         return extra_config
 
     def _build_environment(self):
         env = os.environ.copy()
-        env['QTDIR' ] = self.project.parts_dir + '/qt-5-10-0/install/'
-        env['QML_IMPORT_PATH' ] = self.project.parts_dir + '/qt-5-10-0/install/qml'
-        env['QML2_IMPORT_PATH' ] = self.project.parts_dir + '/qt-5-10-0/install/qml'
-        env['LD_LIBRARY_PATH' ] = self.project.parts_dir + '/qt-5-10-0/install/lib:' + self.project.parts_dir + '/qt-5-10-0/install/usr/lib/:'
-        env['PATH' ] = self.project.parts_dir + '/qt-5-10-0/install/bin:' + os.environ["PATH"]
+        env['QTDIR' ] = self.project.parts_dir + '/qt-5-11-1/install/'
+        env['QML_IMPORT_PATH' ] = self.project.parts_dir + '/qt-5-11-1/install/qml'
+        env['QML2_IMPORT_PATH' ] = self.project.parts_dir + '/qt-5-11-1/install/qml'
+        env['LD_LIBRARY_PATH' ] = self.project.parts_dir + '/qt-5-11-1/install/lib:' + self.project.parts_dir + '/qt-5-11-1/install/usr/lib/:'
+        env['PATH' ] = self.project.parts_dir + '/qt-5-11-1/install/bin:' + os.environ["PATH"]
         return env

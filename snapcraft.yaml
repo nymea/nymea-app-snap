@@ -72,8 +72,26 @@ parts:
       - libssl-dev
       - libudev-dev
       - libbluetooth-dev
+      - libx11-dev
+      - libx11-xcb-dev
+      - libxcb-icccm4-dev
+      - libxcb-image0-dev
+      - libxcb-keysyms1-dev
+      - libxcb-randr0-dev
+      - libxcb-render-util0-dev
+      - libxcb-render0-dev
+      - libxcb-shape0-dev
+      - libxcb-shm0-dev
+      - libxcb-sync-dev
+      - libxcb-xfixes0-dev
+      - libxcb-xinerama0-dev
+      - libxcb-xkb-dev
+      - libxcb1-dev
       - libxext-dev
       - libxi-dev
+      - libxkbcommon-dev
+      - libxkbcommon-x11-dev
+      - libxrender-dev
       - pkg-kde-tools
       - publicsuffix
       - unixodbc-dev
@@ -93,7 +111,7 @@ parts:
       - -opengl
       - es2
       - -no-widgets
-      - -qt-xcb
+      - -xcb
       - -no-gtk
       - -fontconfig
       - -no-eglfs
