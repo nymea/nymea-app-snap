@@ -18,6 +18,8 @@ environment:
 apps:
   nymea-app:
     command: desktop-launch nymea-app
+    environment:
+      __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
     plugs:
     - avahi-observe
     - bluez
