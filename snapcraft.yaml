@@ -9,7 +9,6 @@ description: |
   scenes and behaviors for your environment.
 
 grade: stable
-confinement: classic
 base: core18
 
 apps:
