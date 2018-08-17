@@ -19,6 +19,7 @@ apps:
   nymea-app:
     command: desktop-launch nymea-app
     environment:
+      QT_IM_MODULE: qtvirtualkeyboard
       __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
     plugs:
     - avahi-observe
@@ -64,6 +65,7 @@ parts:
       - qml-module-qt-labs-settings
       - libavahi-client3
       - libavahi-common3
+      - qtvirtualkeyboard-plugin
 
   qt5-launch:
     plugin: dump
