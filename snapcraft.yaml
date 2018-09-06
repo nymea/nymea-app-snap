@@ -39,7 +39,7 @@ parts:
     plugin: qmake
     source: https://github.com/guh/nymea-app.git
     source-type: git
-    source-branch: master
+    source-branch: landing-silo
     after: [desktop-qt5]
     project-files: [ nymea-app.pro ]
 #    options: [ CONFIG+=withavahi ]
