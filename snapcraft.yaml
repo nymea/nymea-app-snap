@@ -1,5 +1,4 @@
 name: nymea-app
-version: 1.0.x
 summary: Control app for nymea
 description: | 
   The nymea daemon is a plugin based IoT (Internet of Things) server. 
@@ -11,13 +10,20 @@ description: |
 grade: stable
 base: core18
 confinement: strict
+adopt-info: nymea-app
+
+architectures:
+- build-on: amd64
+- build-on: arm64
+- build-on: armhf
 
 environment:
   USE_qt5: 1
 
 apps:
   nymea-app:
-    command: desktop-launch nymea-app
+    command-chain: [bin/desktop-launch]
+    command: usr/bin/nymea-app
     environment:
       QT_IM_MODULE: qtvirtualkeyboard
       __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
@@ -34,6 +40,34 @@ apps:
 #    restart-condition: always
 
 parts:
+  desktop-qt5:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - build-essential
+      - libqt5charts5-dev
+      - libqt5websockets5-dev
+      - qtbase5-dev
+      - dpkg-dev
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5charts5
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+
   # Adding the whole guh project containig libguh and plugins
   nymea-app:
     plugin: qmake
@@ -56,17 +90,24 @@ parts:
       - qtquickcontrols2-5-dev
       - qttools5-dev-tools
     stage-packages:
+      - libqt5bluetooth5
+      - libqt5nfc5
       - libqt5gui5
+      - libqt5websockets5
       - libgl1-mesa-dri
+      - qml-module-qt-labs-folderlistmodel
+      - qml-module-qt-labs-settings
+      - qml-module-qtgraphicaleffects
       - qml-module-qtquick2
       - qml-module-qtquick-controls2
       - qml-module-qtquick-layouts
       - qml-module-qtquick-window2
-      - qml-module-qt-labs-settings
       - libavahi-client3
       - libavahi-common3
-      - qml-module-qt-labs-folderlistmodel
       - qtvirtualkeyboard-plugin
+    override-build: |
+      snapcraftctl set-version $( git describe --tags )
+      snapcraftctl build
 
   qt5-launch:
     plugin: dump
